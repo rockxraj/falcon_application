@@ -18,7 +18,7 @@ class TestResource(object):
     def on_get(self, req, res):
         """Handles all GET requests."""
         res.status = falcon.HTTP_200  # This is the default status
-        result =  Chat.select().get()
+        result =  Chat.select().get().msg
         res.body = result
         
     def on_post(self, req, res):
