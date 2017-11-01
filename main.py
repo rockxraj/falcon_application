@@ -4,7 +4,7 @@ class TestResource(object):
     def on_get(self, req, res):
         """Handles all GET requests."""
         res.status = falcon.HTTP_200  # This is the default status
-        res.body = ('This is me, Falcon, serving a resource!')
+        res.body = ('This is me, Falcon, serving a resource and Deployed!')
 
 # Create the Falcon application object
 app = falcon.API()
