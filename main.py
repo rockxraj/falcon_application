@@ -9,7 +9,6 @@ class TestResource(object):
     def on_post(self, req, res):
         res.status = falcon.HTTP_200
         data = req.stream.read()
-        print data
         res.body = data
 
 
