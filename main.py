@@ -26,7 +26,7 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        res.body = data
+        res.body = Chat.select().get().msg 
 
 
 # Create the Falcon application object
