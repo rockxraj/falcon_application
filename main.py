@@ -29,7 +29,7 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        su ='https://webchat.botframework.com/v3/directline/conversations/ea3488d41ce748c796546941e939dd0a/activities'
+        su ='https://webchat.botframework.com/'
         cl = "1509614258436.0034845801641907315.2"
         repl = 'Bot26111991'
         rec = {"id":"7Y3ea3488d41ce748c796546941e939dd0aTok4tIsY", "name": "Rockxraj"}
@@ -69,7 +69,7 @@ def sendMessage(serviceUrl,channelId,replyToId,fromData, recipientData,message,m
                            "Authorization":"%s %s" % (resData["token_type"],resData["access_token"])
                        }
                     )
-    return chatresponse
+
 # Create the Falcon application object
 app = falcon.API()
 
