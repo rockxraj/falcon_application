@@ -30,7 +30,7 @@ class TestResource(object):
         msgdata = Chat(msg=data)
         msgdata.save()
         su = 'https://directline.botframework.com/v3/directline/conversations/dfeddfb4b2f945adbfa8edd3d1012371/activities'
-        cl = '1509603056846.7047707839944322.10'
+        cl = "1509613276845.3558902817806098.8"
         repl = '7Y3Tok4tIsY'
         rec = {"id":"123456789", "name": "Rockxraj"}
         fr = {"id": "28197c53-926e-45a5-ad43-cc47ff011670"}
