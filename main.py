@@ -27,7 +27,7 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        res.body = data
+        res.body = req
 
 app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
 app_client_secret = 'toyvtGREIN41!xbBC440)%@'
