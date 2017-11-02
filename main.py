@@ -29,14 +29,14 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        su = 'https://directline.botframework.com/v3/directline/conversations/f1e5269028f541d9af12215ceced2d80/activities'
+        su = 'https://directline.botframework.com/v3/directline/conversations/dfeddfb4b2f945adbfa8edd3d1012371/activities'
         cl = '1509603056846.7047707839944322.10'
         repl = '7Y3Tok4tIsY'
         rec = {"id":"123456789", "name": "Rockxraj"}
         fr = {"id": "28197c53-926e-45a5-ad43-cc47ff011670"}
         msgd = 'hello! Raj'
         msgTy = 'plain'
-        con = {"id":"f1e5269028f541d9af12215ceced2d80"}
+        con = {"id":"dfeddfb4b2f945adbfa8edd3d1012371"}
         sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
         res.body = json.dump(req.params, sys.stdout)
 
