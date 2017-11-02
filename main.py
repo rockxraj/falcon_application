@@ -1,6 +1,7 @@
 import falcon
 import json
 import requests
+import sys
 
 from peewee import *
 
@@ -27,7 +28,7 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        res.body = req
+        res.body = json.dump(req.params, sys.stdout)
 
 app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
 app_client_secret = 'toyvtGREIN41!xbBC440)%@'
