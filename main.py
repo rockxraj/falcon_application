@@ -2,6 +2,7 @@ import falcon
 import json
 import requests
 import sys
+import datetime
 
 from peewee import *
 
@@ -28,6 +29,15 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
+        su = 'https://webchat.botframework.com/v3/directline/conversations/f1e5269028f541d9af12215ceced2d80/activities'
+        cl = '1509603056846.7047707839944322.10'
+        repl = '7Y3Tok4tIsY'
+        rec = {"id":"123456789", "name": "Rockxraj"}
+        fr = {"id": "28197c53-926e-45a5-ad43-cc47ff011670"}
+        msgd = 'hello! Raj'
+        msgTy = 'plain'
+        con = {"id":"8bbd1c6f52b14d2482ba3d30e8a5c96d"}
+        sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
         res.body = json.dump(req.params, sys.stdout)
 
 app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
