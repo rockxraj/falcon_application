@@ -30,8 +30,8 @@ class TestResource(object):
         msgd = 'hello! Raj'
         msgTy = 'message'
         con = {"id":"ea3488d41ce748c796546941e939dd0a",  "name": "conversation's name"}
-        sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
-        res.body = result
+        result1 = sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
+        res.body = result1
         
     def on_post(self, req, res):
         res.status = falcon.HTTP_200
