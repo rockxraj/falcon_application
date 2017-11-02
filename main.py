@@ -37,8 +37,8 @@ class TestResource(object):
         msgd = 'hello! Raj'
         msgTy = 'plain'
         con = {"id":"dfeddfb4b2f945adbfa8edd3d1012371"}
-        sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
-        res.body = json.dump(req.params, sys.stdout)
+        res.body = sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
+        
 
 app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
 app_client_secret = 'toyvtGREIN41!xbBC440)%@'
