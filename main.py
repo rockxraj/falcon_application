@@ -29,14 +29,14 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        su = 'https://directline.botframework.com/v3/directline/conversations/dfeddfb4b2f945adbfa8edd3d1012371/activities'
-        cl = "1509613276845.3558902817806098.8"
-        repl = '7Y3Tok4tIsY'
-        rec = {"id":"123456789", "name": "Rockxraj"}
+        su ='https://webchat.botframework.com/v3/directline/conversations/ea3488d41ce748c796546941e939dd0a/activities'
+        cl = "1509614258436.0034845801641907315.2"
+        repl = 'Bot26111991'
+        rec = {"id":"7Y3Tok4tIsY", "name": "Rockxraj"}
         fr = {"id": "28197c53-926e-45a5-ad43-cc47ff011670"}
         msgd = 'hello! Raj'
-        msgTy = 'plain'
-        con = {"id":"dfeddfb4b2f945adbfa8edd3d1012371"}
+        msgTy = 'message'
+        con = {"id":"ea3488d41ce748c796546941e939dd0a",  "name": "conversation's name"}
         res.body = sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
         
 
