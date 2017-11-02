@@ -22,13 +22,6 @@ class TestResource(object):
         """Handles all GET requests."""
         res.status = falcon.HTTP_200  # This is the default status
         result =  Chat.select().get().msg
-        res.body = result
-        
-    def on_post(self, req, res):
-        res.status = falcon.HTTP_200
-        data = req.stream.read()
-        msgdata = Chat(msg=data)
-        msgdata.save()
         su ='https://webchat.botframework.com/v3/directline/conversations/ea3488d41ce748c796546941e939dd0a/activities'
         cl = "1509614258436.0034845801641907315.2"
         repl = 'Bot26111991'
@@ -38,6 +31,13 @@ class TestResource(object):
         msgTy = 'message'
         con = {"id":"ea3488d41ce748c796546941e939dd0a",  "name": "conversation's name"}
         sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
+        res.body = result
+        
+    def on_post(self, req, res):
+        res.status = falcon.HTTP_200
+        data = req.stream.read()
+        msgdata = Chat(msg=data)
+        msgdata.save()
         res.body = 'successfully sent'
         
 
