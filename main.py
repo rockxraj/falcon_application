@@ -32,12 +32,13 @@ class TestResource(object):
         su ='https://webchat.botframework.com/v3/directline/conversations/ea3488d41ce748c796546941e939dd0a/activities'
         cl = "1509614258436.0034845801641907315.2"
         repl = 'Bot26111991'
-        rec = {"id":"7Y3Tok4tIsY", "name": "Rockxraj"}
+        rec = {"id":"7Y3ea3488d41ce748c796546941e939dd0aTok4tIsY", "name": "Rockxraj"}
         fr = {"id": "28197c53-926e-45a5-ad43-cc47ff011670"}
         msgd = 'hello! Raj'
         msgTy = 'message'
         con = {"id":"ea3488d41ce748c796546941e939dd0a",  "name": "conversation's name"}
-        res.body = sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
+        sendMessage(su, cl, repl, fr, rec, msgd, msgTy, con)
+        res.body = 'successfully sent'
         
 
 app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
