@@ -1,5 +1,6 @@
 import falcon
 import json
+import requests
 
 from peewee import *
 
@@ -26,9 +27,36 @@ class TestResource(object):
         data = req.stream.read()
         msgdata = Chat(msg=data)
         msgdata.save()
-        res.body = Chat.select().get().msg 
+        res.body = data
 
+app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
+app_client_secret = 'toyvtGREIN41!xbBC440)%@'
 
+def sendMessage(serviceUrl,channelId,replyToId,fromData, recipientData,message,messageType,conversation):
+    url="https://login.microsoftonline.com/common/oauth2/v2.0/token"
+    data = {"grant_type":"client_credentials",
+        "client_id":app_client_id,
+        "client_secret":app_client_secret,
+        "scope":"https://graph.microsoft.com/.default"
+       }
+    response = requests.post(url,data)
+    resData = response.json()
+    responseURL = serviceUrl + "v3/conversations/%s/activities/%s" % (conversation["id"],replyToId)
+    chatresponse = requests.post(
+                       responseURL,
+                       json={
+                        "type": messageType,
+                        "timestamp": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
+                        "from": fromData,
+                        "conversation": conversation,
+                        "recipient": recipientData,
+                        "text": message,
+                        "replyToId": replyToId
+                       },
+                       headers={
+                           "Authorization":"%s %s" % (resData["token_type"],resData["access_token"])
+                       }
+                    )
 # Create the Falcon application object
 app = falcon.API()
 
