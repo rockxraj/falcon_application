@@ -83,8 +83,8 @@ def sendToBot():
                                  headers = tokenPayload
     )                        
     #print chatResponse
-   # print chatResponse.json()
-    getData(tokenResponseData)
+    #print chatResponse.json()
+    #getData(tokenResponseData)
 
 
 # def sendMessage(serviceUrl,channelId,replyToId,fromData, recipientData,message,messageType,conversation):
