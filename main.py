@@ -21,98 +21,134 @@ class TestResource(object):
     def on_get(self, req, res):
         res.status = falcon.HTTP_200 
         #result =  Chat.select().get().msg
-        recieveFromBot()
+        #recieveFromBot()
         res.body = "sucessfully get"
         
     def on_post(self, req, res) :
         res.status = falcon.HTTP_200
         data = req.stream.read() 
-        sendToBot()
-        res.body = "successfully sent message"
+        #sendMessage()
+        res.body = data
 
-app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
+'''app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
 app_client_secret = 'toyvtGREIN41!xbBC440)%@'
 
-def getData(tokenResponseData):
-    #print 'under getdata()\n\n'
-    #serviceUrl = "https://directline.botframework.com/"  
-    serviceUrl = "https://webchat.botframework.com/"  
-    tokenPayload ={ "Authorization": "Bearer %s" % tokenResponseData["token"]}
-    requestURL = serviceUrl + "v3/directline/conversations/%s/activities" % (tokenResponseData["conversationId"])
-    #print requestURL
-    botResponse =requests.get(requestURL,headers = tokenPayload)
-    #print botResponse.json()    
+def sendMessage():
+    url="https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token"
+    data = {"grant_type":"client_credentials",
+        "client_id":app_client_id,
+        "client_secret":app_client_secret,
+        #"scope":"https%3A%2F%2Fapi.botframework.com%2F.default"
+        "scope" : "https://api.botframework.com/.default"
+    }
+    header = {"Content-Type" : "application/x-www-form-urlencoded", "Host": "login.microsoftonline.com"}
+    response = requests.post(url,data, headers = header)
+    resData = response.json()
+    abc ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
+    #print abc
+    serviceUrl = "https://skype.botframework.com"
+    coversationUrl  = "https://smba.trafficmanager.net/apis/v3/conversations"
+    conversationResponse = requests.post("https://skype.botframework.com/v3/conversations",
+                                         json = {
+                                             "channelId" : "skype",
+                                             "bot": {
+                                                 "id": "29:28197c53-926e-45a5-ad43-cc47ff011670",
+                                                 "name": "Rockxraj" 
+                                             },
+                                             "isGroup": "false",
+                                             "members": [
+                                                 {
+                                                     "id": "28:rajendra.g@amazatic.com",
+                                                     "name": "Rajendra Gupta"
+                                                 }
+                                             ],
+                                             "topicName": "News Alert",
+                                         },
+                                         headers = abc)    
+    #print conversationResponse.json()
+    conversationId = conversationResponse.json()
+    abcd ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
+    responseUrl = serviceUrl + "/v3/conversations/%s/activities" % (conversationId["id"][3:])
 
-def recieveFromBot():
-    #serviceUrl = "https://directline.botframework.com/"
-    serviceUrl = "https://webchat.botframework.com/"
-    url = "https://directline.botframework.com/v3/directline/conversations"
-    payload = { "Authorization" : "Bearer gvTJg8q_2rY.cwA.L6Q.08Av9U0yKi5vGZGQ8qDcqwKU2wvYyxzZHtKMlyNDgio" }
-    tokenResponse = requests.post(url,headers =payload )
-    tokenResponseData = tokenResponse.json()
+    #print responseUrl
 
-    tokenPayload ={ "Authorization": "Bearer %s" % tokenResponseData["token"]}
-    requestURL = serviceUrl + "v3/directline/conversations/%s/activities" % (tokenResponseData["conversationId"])
-    
-    botResponse =requests.get(requestURL,headers = tokenPayload)
-    #print botResponse.json()
-
-
-def sendToBot():
-    #serviceUrl = "https://directline.botframework.com/"
-    serviceUrl = "https://webchat.botframework.com/"
-    #url = "https://directline.botframework.com/v3/directline/conversations"
-    url = "https://webchat.botframework.com/v3/directline/conversations" 
-    payload = { "Authorization" : "Bearer gvTJg8q_2rY.cwA.L6Q.08Av9U0yKi5vGZGQ8qDcqwKU2wvYyxzZHtKMlyNDgio" }
-    tokenResponse = requests.post(url,headers =payload )
-    tokenResponseData = tokenResponse.json()
-    #print tokenResponseData
-    #print tokenResponseData["conversationId"]
-    #print "Bearer %s" % tokenResponseData["token"]
-    tokenPayload ={ "Authorization": "Bearer %s" % tokenResponseData["token"]}
-    #print tokenPayload
-    responseURL = serviceUrl + "v3/directline/conversations/%s/activities" % (tokenResponseData["conversationId"])
-
-    chatResponse = requests.post(responseURL,json= {
-        "type": "message",
-        "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
-        "from": { "id": "7Y3Tok4tIsY", "name": "You"},
-        "text": "Hello Raj you have successfully posted data !!",
-        "locale":"en-US",
-        "textFormat": "plain"},
-                                 headers = tokenPayload
-    )                        
+    chatResponse = requests.post(
+                       responseUrl,
+                       json =  {
+                           "type": "message",
+                           "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
+                           "from": {
+                               "id": "29:28197c53-926e-45a5-ad43-cc47ff011670",
+                               "name": "Rockxraj"
+                           },
+                           "conversation": {
+                               "isGroup": "false",
+                               "id": "28:rajendra.g@amazatic.com"
+                           },
+                           "recipient": {
+                               "id": "28:rajendra.g@amazatic.com",
+                               "name": "Rajendra Gupta"
+                           },
+                           "text": "Good morning !" ,
+                           "textFormat" : "plain"
+                       },
+                        headers = abcd
+                    )
     #print chatResponse
-    #print chatResponse.json()
-    #getData(tokenResponseData)
+    
+# def getData(tokenResponseData):
+#     #print 'under getdata()\n\n'
+#     serviceUrl = "https://directline.botframework.com/"  
+#     tokenPayload ={ "Authorization": "Bearer %s" % tokenResponseData["token"]}
+#     requestURL = serviceUrl + "v3/directline/conversations/%s/activities" % (tokenResponseData["conversationId"])
+#     #print requestURL
+#     botResponse =requests.get(requestURL,headers = tokenPayload)
+#     #print botResponse.json()    
+
+# def recieveFromBot():
+#     serviceUrl = "https://directline.botframework.com/"
+    
+#     url = "https://directline.botframework.com/v3/directline/conversations"
+#     payload = { "Authorization" : "Bearer gvTJg8q_2rY.cwA.L6Q.08Av9U0yKi5vGZGQ8qDcqwKU2wvYyxzZHtKMlyNDgio" }
+#     tokenResponse = requests.post(url,headers =payload )
+#     tokenResponseData = tokenResponse.json()
+
+#     tokenPayload ={ "Authorization": "Bearer %s" % tokenResponseData["token"]}
+#     requestURL = serviceUrl + "v3/directline/conversations/%s/activities" % (tokenResponseData["conversationId"])
+    
+#     botResponse =requests.get(requestURL,headers = tokenPayload)
+#     #print botResponse.json()
 
 
-# def sendMessage(serviceUrl,channelId,replyToId,fromData, recipientData,message,messageType,conversation):
-#     url="https://login.microsoftonline.com/common/oauth2/v2.0/token"
-#     data = {"grant_type":"client_credentials",
-#         "client_id":app_client_id,
-#         "client_secret":app_client_secret,
-#         "scope":"https://graph.microsoft.com/.default"
-#        }
-#     response = requests.post(url,data)
-#     resData = response.json()
-#     #responseURL = serviceUrl + "v3/conversations/%s/activities/%s" % (conversation["id"],replyToId)
-#     responseURL = serviceUrl + "v3/conversations/%s/activities/" % (conversation)
-#     chatresponse = requests.post(
-#                        responseURL,
-#                        json={
-#                         "type": messageType,
-#                         "timestamp": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
-#                         "from": fromData,
-#                         "conversation": conversation,
-#                         "recipient": recipientData,
-#                         "text": message,
-#                         "replyToId": replyToId
-#                        },
-#                        headers={
-#                            "Authorization":"%s %s" % (resData["token_type"],resData["access_token"])
-#                        }
-#                     )
+# def sendToBot():
+#     serviceUrl = "https://directline.botframework.com/"
+#     url = "https://directline.botframework.com/v3/directline/conversations"
+    
+#     payload = { "Authorization" : "Bearer gvTJg8q_2rY.cwA.L6Q.08Av9U0yKi5vGZGQ8qDcqwKU2wvYyxzZHtKMlyNDgio" }
+#     tokenResponse = requests.post(url,headers =payload )
+#     tokenResponseData = tokenResponse.json()
+#     #print tokenResponseData
+#     #print tokenResponseData["conversationId"]
+#     #print "Bearer %s" % tokenResponseData["token"]
+#     tokenPayload ={ "Authorization": "Bearer %s" % tokenResponseData["token"]}
+#     #print tokenPayload
+#     responseURL = serviceUrl + "v3/directline/conversations/%s/activities" % (tokenResponseData["conversationId"])
+
+#     chatResponse = requests.post(responseURL,json= {
+#         "type": "message",
+#         "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
+#         "from": { "id": "7Y3Tok4tIsY", "name": "You"},
+#         "text": "Hello Raj you have successfully posted data !!",
+#         "locale":"en-US",
+#         "textFormat": "plain"},
+#                                  headers = tokenPayload
+#     )                        
+#     #print chatResponse
+#     #print chatResponse.json()
+#     #getData(tokenResponseData)'''
+
+
+
 # Create the Falcon application object
 app = falcon.API()
 
