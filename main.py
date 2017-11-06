@@ -28,7 +28,8 @@ class TestResource(object):
         res.status = falcon.HTTP_200
         data = req.stream.read() 
         #sendMessage()
-        res.body = json.dumps(data.decode("utf-8"))
+        print(data)
+        res.body = "posted"
         
 
 '''app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
