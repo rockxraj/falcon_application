@@ -27,15 +27,15 @@ class TestResource(object):
     def on_post(self, req, res) :
         res.status = falcon.HTTP_200
         data = req.stream.read() 
-        #sendMessage()
+        sendMessage(data["serviceUrl"], data["29:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb"], "Hello Raj!!")
         print(data)
         res.body = "posted"
         
 
-'''app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
+app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
 app_client_secret = 'toyvtGREIN41!xbBC440)%@'
 
-def sendMessage():
+def sendMessage( serviceUrl, conversationId, msg):
     url="https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token"
     data = {"grant_type":"client_credentials",
         "client_id":app_client_id,
@@ -47,56 +47,54 @@ def sendMessage():
     response = requests.post(url,data, headers = header)
     resData = response.json()
     abc ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
-    #print abc
-    serviceUrl = "https://skype.botframework.com"
-    coversationUrl  = "https://smba.trafficmanager.net/apis/v3/conversations"
-    conversationResponse = requests.post("https://skype.botframework.com/v3/conversations",
+    serviceUrl = "https://smba.trafficmanager.net/apis/"
+    #coversationUrl  = "https://smba.trafficmanager.net/apis/v3/conversations"
+    conversationResponse = requests.post(serviceUrl + 'v3/%s/conversations/activities' % conversationId,
                                          json = {
-                                             "channelId" : "skype",
-                                             "bot": {
-                                                 "id": "29:28197c53-926e-45a5-ad43-cc47ff011670",
-                                                 "name": "Rockxraj" 
-                                             },
-                                             "isGroup": "false",
-                                             "members": [
-                                                 {
-                                                     "id": "28:rajendra.g@amazatic.com",
-                                                     "name": "Rajendra Gupta"
-                                                 }
-                                             ],
-                                             "topicName": "News Alert",
+                                             "text": msg,
+                                             "type":"message",
+                                             "timestamp":datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
+                                             "localTimestamp":"2017-11-06T18:02:08.173+05:30",
+                                             "id":"1509971528165",
+                                             "channelId":"skype",
+                                             "serviceUrl":"https://smba.trafficmanager.net/apis/",
+                                             "from":{"id":"29:28197c53-926e-45a5-ad43-cc47ff011670","name":"Rockxraj"},
+                                             "conversation":{"id": conversationId },
+                                             "recipient":{"id":"28:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb","name":"Rajendra Gupta"},
+                                             "entities":[{"locale":"en-US","country":"US","platform":"Mac","type":"clientInfo"}],
+                                             "channelData":{"text": msg}
                                          },
                                          headers = abc)    
-    #print conversationResponse.json()
-    conversationId = conversationResponse.json()
-    abcd ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
-    responseUrl = serviceUrl + "/v3/conversations/%s/activities" % (conversationId["id"][3:])
+    print(conversationResponse.json())
+    # conversationId = conversationResponse.json()
+    # abcd ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
+    # responseUrl = serviceUrl + "/v3/conversations/%s/activities" % (conversationId["id"][3:])
 
-    #print responseUrl
+    # #print responseUrl
 
-    chatResponse = requests.post(
-                       responseUrl,
-                       json =  {
-                           "type": "message",
-                           "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
-                           "from": {
-                               "id": "29:28197c53-926e-45a5-ad43-cc47ff011670",
-                               "name": "Rockxraj"
-                           },
-                           "conversation": {
-                               "isGroup": "false",
-                               "id": "28:rajendra.g@amazatic.com"
-                           },
-                           "recipient": {
-                               "id": "28:rajendra.g@amazatic.com",
-                               "name": "Rajendra Gupta"
-                           },
-                           "text": "Good morning !" ,
-                           "textFormat" : "plain"
-                       },
-                        headers = abcd
-                    )
-    #print chatResponse
+    # chatResponse = requests.post(
+    #                    responseUrl,
+    #                    json =  {
+    #                        "type": "message",
+    #                        "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
+    #                        "from": {
+    #                            "id": "29:28197c53-926e-45a5-ad43-cc47ff011670",
+    #                            "name": "Rockxraj"
+    #                        },
+    #                        "conversation": {
+    #                            "isGroup": "false",
+    #                            "id": "28:rajendra.g@amazatic.com"
+    #                        },
+    #                        "recipient": {
+    #                            "id": "28:rajendra.g@amazatic.com",
+    #                            "name": "Rajendra Gupta"
+    #                        },
+    #                        "text": "Good morning !" ,
+    #                        "textFormat" : "plain"
+    #                    },
+    #                     headers = abcd
+    #                 )
+    # #print chatResponse
     
 # def getData(tokenResponseData):
 #     #print 'under getdata()\n\n'
