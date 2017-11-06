@@ -27,7 +27,8 @@ class TestResource(object):
     def on_post(self, req, res) :
         res.status = falcon.HTTP_200
         data = req.stream.read() 
-        sendMessage(data[6], data[8], "Hello Raj!!")
+        #sendMessage(data[6], data[8], "Hello Raj!!")
+        print(json.dump(data))
         print(data)
         res.body = "posted"
         
