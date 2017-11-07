@@ -29,10 +29,12 @@ class TestResource(object):
         res.status = falcon.HTTP_200
         data = req.stream.read() 
         #sendMessage(data[6], data[8], "Hello Raj!!")
-        a = json.dumps(data.decode("utf-8"))
+        #a = json.dumps(data.decode("utf-8"))
+        a = json.dumps(data.decode()).replace("'", '"')[1:-1]
         b = json.loads(a)
-        print(b[0])
-        print(data)
+        print (b)
+        print(type(b))
+        #print(data)
         res.body = "posted"
         
 
