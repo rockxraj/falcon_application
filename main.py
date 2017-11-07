@@ -57,9 +57,9 @@ def sendMessage( serviceUrl, conversationId, replyToId, msg):
     print(resData)
     print(conversationId[3:])
     
-    ReplyConUrl = serviceUrl + 'v3/%s/conversations/activities/%s' % (conversationId[3:], replyToId)
+    replyConUrl = serviceUrl + 'v3/%s/conversations/activities/%s' % (conversationId[3:], replyToId)
     print(ReplyConUrl)
-    replyConversationResponse = requests.post( ReplyConUrl, 
+    replyConversationResponse = requests.post( replyConUrl, 
                                           json = {
                                               "text": msg,
                                               "type":"message",
@@ -75,7 +75,7 @@ def sendMessage( serviceUrl, conversationId, replyToId, msg):
                                               #"channelData":{"text": msg}
                                           },
                                           headers = abc)    
-    print(ReplyConversationResponse)
+    print(replyConversationResponse)
     #print (conversationResponse.json())
     
     # conversationId = conversationResponse.json()
