@@ -3,6 +3,7 @@ import json
 import requests
 import sys
 from datetime import datetime
+from array import array
 
 from peewee import *
 
@@ -28,7 +29,7 @@ class TestResource(object):
         res.status = falcon.HTTP_200
         data = req.stream.read() 
         #sendMessage(data[6], data[8], "Hello Raj!!")
-        print(array (json.dumps(list(data))))
+        print(json.dumps(data.decode("utf-8")))
         print(data)
         res.body = "posted"
         
