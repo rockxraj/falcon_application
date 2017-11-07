@@ -33,7 +33,7 @@ class TestResource(object):
         print(a['text'])
         print(a['conversation']['id'])
         print(a['serviceUrl'])
-        #sendMessage(a['serviceUrl'], a['conversation']['id'] , "Hi Raj")
+        sendMessage(a['serviceUrl'], a['conversation']['id'] , "Hi Raj")
         res.body = "posted"
         
 
