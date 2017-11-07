@@ -57,7 +57,7 @@ def sendMessage( serviceUrl, conversationId, replyToId, msg):
     print(resData)
     print(conversationId[3:])
     
-    replyConUrl = serviceUrl + 'v3/%s/conversations/activities/%s' % (conversationId[3:], replyToId)
+    replyConUrl = serviceUrl + 'v3/conversations/%s/activities/%s' % (conversationId[3:], replyToId)
     print(ReplyConUrl)
     replyConversationResponse = requests.post( replyConUrl, 
                                           json = {
