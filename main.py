@@ -54,7 +54,8 @@ def sendMessage( serviceUrl, conversationId, msg):
     abc ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
     
     print(resData)
-    conversationResponse = requests.post(serviceUrl + 'v3/%s/conversations/activities' % conversationId,
+    print(conversationId[3:])
+    conversationResponse = requests.post(serviceUrl + 'v3/%s/conversations/activities' % conversationId[3:],
                                          json = {
                                              "text": msg,
                                              "type":"message",
