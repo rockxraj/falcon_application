@@ -28,10 +28,11 @@ class TestResource(object):
     def on_post(self, req, res) :
         res.status = falcon.HTTP_200
         data = req.stream.read()
-        
-        #print(data.decode('utf-8'))
+        print(data)
         a = json.loads(data.decode('utf-8'))
         print(a['text'])
+        print(a['conversationId'])
+        sendMessage(a['serviceUrl'], a['conversationId'] , 'Hi Raj !!! Welcome to machine learning')
         res.body = "posted"
         
 
