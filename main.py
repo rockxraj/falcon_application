@@ -32,7 +32,8 @@ class TestResource(object):
         a = json.loads(data.decode('utf-8'))
         print(a['text'])
         print(a['conversation']['id'])
-        sendMessage(a['serviceUrl'], a['conversation']['id'] , 'Hi Raj !!! Welcome to machine learning')
+        print(a['serviceUrl'])
+        #sendMessage(a['serviceUrl'], a['conversation']['id'] , 'Hi Raj !!! Welcome to machine learning')
         res.body = "posted"
         
 
