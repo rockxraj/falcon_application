@@ -33,6 +33,7 @@ class TestResource(object):
         print(a['text'])
         print(a['conversation']['id'])
         print(a['serviceUrl'])
+        print(a['id'])
         sendMessage(a['serviceUrl'], a['conversation']['id'] , a['id'], "Hi Raj")
         res.body = "posted"
         
@@ -55,8 +56,10 @@ def sendMessage( serviceUrl, conversationId, replyToId, msg):
     
     print(resData)
     print(conversationId[3:])
-    conversationResponse = requests.post(serviceUrl + 'v3/%s/conversations/activities/%s' % (conversationId, replyToId),
-                                         json = {
+    conUrl = serviceUrl + 'v3/%s/conversations/activities/%s' % (conversationId, replyToId)
+    print(conUrl)
+    conversationResponse = requests.post( conUrl, 
+                                          json = {
                                              "text": msg,
                                              "type":"message",
                                              "timestamp":datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
