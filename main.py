@@ -60,21 +60,22 @@ def sendMessage( serviceUrl, conversationId, replyToId, msg):
     print(conUrl)
     conversationResponse = requests.post( conUrl, 
                                           json = {
-                                             "text": msg,
-                                             "type":"message",
-                                             "timestamp":datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
-                                             "localTimestamp":"2017-11-06T18:02:08.173+05:30",
-                                             "replyToId":"1509971528165",
-                                             "channelId":"skype",
-                                             "serviceUrl":"https://smba.trafficmanager.net/apis/",
-                                             "from":{"id":"29:28197c53-926e-45a5-ad43-cc47ff011670","name":"Rockxraj"},
-                                             "conversation":{"id": conversationId },
-                                             "recipient":{"id":"28:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb","name":"Rajendra Gupta"},
-                                             "entities":[{"locale":"en-US","country":"US","platform":"Mac","type":"clientInfo"}],
-                                             #"channelData":{"text": msg}
-                                         },
-                                         headers = abc)    
+                                              "text": msg,
+                                              "type":"message",
+                                              "timestamp":datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
+                                              "localTimestamp":"2017-11-06T18:02:08.173+05:30",
+                                              "replyToId":replyToId,
+                                              "channelId":"skype",
+                                              "serviceUrl":"https://smba.trafficmanager.net/apis/",
+                                              "from":{"id":"29:28197c53-926e-45a5-ad43-cc47ff011670","name":"Rockxraj"},
+                                              "conversation":{"id": conversationId },
+                                              "recipient":{"id":"28:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb","name":"Rajendra Gupta"}
+                                              #"entities":[{"locale":"en-US","country":"US","platform":"Mac","type":"clientInfo"}],
+                                              #"channelData":{"text": msg}
+                                          },
+                                          headers = abc)    
     print(conversationResponse)
+    print (conversationResponse.json())
     
     # conversationId = conversationResponse.json()
     # abcd ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
