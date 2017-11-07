@@ -30,8 +30,7 @@ class TestResource(object):
         data = req.stream.read() 
         #sendMessage(data[6], data[8], "Hello Raj!!")
         #a = json.dumps(data.decode("utf-8"))
-        a = json.dumps(data.decode()).replace("'", '"')
-        
+        a = json.dumps(data.decode("utf-8")).replace("'", '"')
         print (a)
         print(type(a))
         #print(b)
