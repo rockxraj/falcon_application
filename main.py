@@ -60,7 +60,7 @@ def sendMessage( serviceUrl, conversationId, msg):
                                              "type":"message",
                                              "timestamp":datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%zZ"),
                                              "localTimestamp":"2017-11-06T18:02:08.173+05:30",
-                                             "id":"1509971528165",
+                                             "replyToId":"1509971528165",
                                              "channelId":"skype",
                                              "serviceUrl":"https://smba.trafficmanager.net/apis/",
                                              "from":{"id":"29:28197c53-926e-45a5-ad43-cc47ff011670","name":"Rockxraj"},
@@ -70,7 +70,7 @@ def sendMessage( serviceUrl, conversationId, msg):
                                              "channelData":{"text": msg}
                                          },
                                          headers = abc)    
-    print(conversationResponse.json())
+    print(conversationResponse)
     
     # conversationId = conversationResponse.json()
     # abcd ={"Authorization" : "%s %s" % (resData["token_type"],resData["access_token"]), "Content-Type": "application/json"}
