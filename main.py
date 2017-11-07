@@ -30,8 +30,10 @@ class TestResource(object):
         data = req.stream.read() 
         #sendMessage(data[6], data[8], "Hello Raj!!")
         #a = json.dumps(data.decode("utf-8"))
-        a = json.dumps(data.decode("utf-8")).replace("'", '"')
-        print (a)
+        temp = "{\"text\":\"helllllllllo\",\"type\":\"message\",\"timestamp\":\"2017-11-07T04:50:42.684Z\",\"localTimestamp\":\"2017-11-07T10:20:42.684+05:30\",\"id\":\"1510030242630\",\"channelId\":\"skype\",\"serviceUrl\":\"https://smba.trafficmanager.net/apis/\",\"from\":{\"id\":\"29:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb\",\"name\":\"Rajendra Gupta\"},\"conversation\":{\"id\":\"29:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb\"},\"recipient\":{\"id\":\"28:28197c53-926e-45a5-ad43-cc47ff011670\",\"name\":\"Rockxraj\"},\"entities\":[{\"locale\":\"en-US\",\"country\":\"US\",\"platform\":\"Mac\",\"type\":\"clientInfo\"}],\"channelData\":{\"text\":\"helllllllllo\"}}"
+        b = json.dumps(data.decode('utf-8'))
+        a = json.loads(b.decode('utf-8'))
+        print(a['text'])
         print(type(a))
         #print(b)
         res.body = "posted"
