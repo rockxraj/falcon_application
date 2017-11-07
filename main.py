@@ -33,14 +33,14 @@ class TestResource(object):
         print(a['text'])
         print(a['conversation']['id'])
         print(a['serviceUrl'])
-        sendMessage(a['serviceUrl'], a['conversation']['id'] , "Hi Raj")
+        sendMessage(a['serviceUrl'], a['conversation']['id'] , a['id'], "Hi Raj")
         res.body = "posted"
         
 
 app_client_id = '28197c53-926e-45a5-ad43-cc47ff011670'
 app_client_secret = 'toyvtGREIN41!xbBC440)%@'
 
-def sendMessage( serviceUrl, conversationId, msg):
+def sendMessage( serviceUrl, conversationId, replyToId, msg):
     url="https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token"
     data = {"grant_type":"client_credentials",
         "client_id":app_client_id,
@@ -55,7 +55,7 @@ def sendMessage( serviceUrl, conversationId, msg):
     
     print(resData)
     print(conversationId[3:])
-    conversationResponse = requests.post(serviceUrl + 'v3/%s/conversations/activities' % conversationId[3:],
+    conversationResponse = requests.post(serviceUrl + 'v3/%s/conversations/activities/%s' % (conversationId, replyToId),
                                          json = {
                                              "text": msg,
                                              "type":"message",
@@ -68,7 +68,7 @@ def sendMessage( serviceUrl, conversationId, msg):
                                              "conversation":{"id": conversationId },
                                              "recipient":{"id":"28:1tiv_UrrNJp1UKSRV0fw9V_nZhZIwbuYhnGtJBr1Lcw86LWNS4HzKHfvlCdrnqIVb","name":"Rajendra Gupta"},
                                              "entities":[{"locale":"en-US","country":"US","platform":"Mac","type":"clientInfo"}],
-                                             "channelData":{"text": msg}
+                                             #"channelData":{"text": msg}
                                          },
                                          headers = abc)    
     print(conversationResponse)
