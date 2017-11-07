@@ -30,11 +30,11 @@ class TestResource(object):
         data = req.stream.read() 
         #sendMessage(data[6], data[8], "Hello Raj!!")
         #a = json.dumps(data.decode("utf-8"))
-        a = json.dumps(data.decode()).replace("'", '"')[1:-1]
-        #b = json.loads(a["text"])
+        a = json.dumps(data.decode()).replace("'", '"')
+        
         print (a)
         print(type(a))
-        #print(data)
+        #print(b)
         res.body = "posted"
         
 
