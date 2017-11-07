@@ -31,7 +31,7 @@ class TestResource(object):
         #sendMessage(data[6], data[8], "Hello Raj!!")
         a = json.dumps(data.decode("utf-8"))
         b = json.loads(a)
-        print(b["text"])
+        print(b[0])
         print(data)
         res.body = "posted"
         
